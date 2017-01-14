@@ -10,7 +10,9 @@ let id = 0;
 
 router.get('/', (req, res) => {
 
-  res.render('index', {productList:products.inventoryList});
+  res.render('index', {
+    productList : products.getAllProducts()
+  });
 });
 
 router.post('/', (req, res) => {

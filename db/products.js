@@ -1,6 +1,9 @@
 //jshint esversion:6
-
 let inventoryList = [];
+
+function getAllProducts(){
+  return inventoryList;
+}
 
 function add(obj){
   inventoryList.push(obj);
@@ -8,7 +11,7 @@ function add(obj){
 }
 
 module.exports = {
-  inventoryList: inventoryList,
+  getAllProducts: getAllProducts,
   add: add
 
 };
