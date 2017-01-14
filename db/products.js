@@ -1,11 +1,9 @@
 //jshint esversion:6
 
-let inventoryList = {
-  "productList":[]
-};
+let inventoryList = [];
 
 function add(obj){
-  inventoryList.productList.push(obj);
+  inventoryList.push(obj);
 
 }
 

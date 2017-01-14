@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const products = require('../db/products');
-let productsArray = products.inventoryList.productList;
+
 
 
 let id = 0;
@@ -10,7 +10,7 @@ let id = 0;
 
 router.get('/', (req, res) => {
 
-  res.render('index', {productList:products.inventoryList.productList});
+  res.render('index', {productList:products.inventoryList});
 });
 
 router.post('/', (req, res) => {
