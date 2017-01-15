@@ -58,6 +58,16 @@ router.put('/:id', (req, res) => {
 });
 
 
+router.delete('/:id', (req, res) => {
+  console.log('hello delete');
+  products.deleteProduct(parseInt(req.params.id));
+
+
+  res.redirect(303, '/products');
+ 
+});
+
+
 
 
 module.exports = router; 

@@ -22,12 +22,22 @@ function getProduct(id){
   return null;
 }
 
+function deleteProduct(productId){
+   for(var i = 0; i < inventoryList.length; i++){
+    if(inventoryList[i].id === productId){
+      inventoryList.splice(inventoryList.indexOf(inventoryList[i]),1);
+
+    }
+  }
+
+}
 
 
 
 module.exports = {
   getAllProducts: getAllProducts,
   add: add,
-  getProduct: getProduct
+  getProduct: getProduct,
+  deleteProduct: deleteProduct
 
 };
