@@ -15,6 +15,12 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/new', (req, res) => {
+  res.render('new');
+});
+
+
+
 router.post('/', (req, res) => {
   let newProduct = {};
   if(req.body.hasOwnProperty('name') && req.body.hasOwnProperty('price') && req.body.hasOwnProperty('inventory')){
