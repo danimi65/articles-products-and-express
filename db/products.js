@@ -22,6 +22,8 @@ function getProduct(id){
   return null;
 }
 
+
+
 function deleteProduct(productId){
    for(var i = 0; i < inventoryList.length; i++){
     if(inventoryList[i].id === productId){

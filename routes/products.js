@@ -19,7 +19,10 @@ router.get('/new', (req, res) => {
   res.render('new');
 });
 
+router.get('/:id/edit', (req, res) => {
+  res.render('edit', products.getProduct(req.params.id));
 
+});
 
 router.post('/', (req, res) => {
   let newProduct = {};
