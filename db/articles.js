@@ -6,6 +6,11 @@ function getAllArticles(){
   return articleList;
 }
 
+function add(obj){
+  articleList.push(obj);
+}
+
 module.exports = {
-  getAllArticles: getAllArticles
+  getAllArticles: getAllArticles,
+  add: add
 };

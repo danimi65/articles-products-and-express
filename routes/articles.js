@@ -3,22 +3,25 @@ const express = require('express');
 const router = express.Router();
 const articles = require('../db/articles');
 
-router.get('/', (res, req) => {
+router.get('/', (req, res) => {
   res.render('index', {
     articleList : articles.getAllArticles()
   });
 
 });
 
-let titleUrl;
 
 router.post('/', (req, res) => {
   let newArticle = {};
-  if(req.body.hasOwnProperty('title') && req.body.hasOwnProperty('body') && req.body.hasOwnProperty('authory')){
+  if(req.body.hasOwnProperty('title') && req.body.hasOwnProperty('body') && req.body.hasOwnProperty('author')){
     newArticle.title = req.body.title;
     newArticle.body = req.body.body;
     newArticle.author = req.body.author;
-    newArticle.titleUrl = titleUrl;
+    newArticle.titleUrl = encodeURIComponent(req.body.title);
+    articles.add(newArticle);
 
   }
+  res.redirect('/articles');
 });
+
+module.exports = router;

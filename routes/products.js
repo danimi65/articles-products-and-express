@@ -4,7 +4,6 @@ const router = express.Router();
 const products = require('../db/products');
 
 
-
 let id = 0;
 
 
@@ -18,11 +17,12 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   res.render('new');
 });
-
+ 
 router.get('/:id/edit', (req, res) => {
+  console.log('why dont you work');
   res.render('edit', products.getProduct(req.params.id));
-
 });
+ 
 
 router.post('/', (req, res) => {
   let newProduct = {};
@@ -31,7 +31,6 @@ router.post('/', (req, res) => {
     newProduct.price = req.body.price;
     newProduct.inventory = req.body.inventory;
     newProduct.id = id;
-    // console.log(products);
     products.add(newProduct);
     id ++;
   }
@@ -47,7 +46,6 @@ router.put('/:id', (req, res) => {
   console.log('hello put');
   let newProduct = req.body;
   let productToChange = products.getProduct(parseInt(req.params.id));
-  console.log(productToChange);
 
   if(newProduct.hasOwnProperty('name')){
     productToChange.name = newProduct.name;
@@ -60,9 +58,6 @@ router.put('/:id', (req, res) => {
   }
 
   res.redirect(303, '/products/'+ req.params.id);
-
-
-
 
 });
 

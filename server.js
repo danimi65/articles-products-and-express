@@ -5,8 +5,10 @@ const handlebars = require('express-handlebars');
 const app = express();
 const bodyParser = require('body-parser');
 const products = require('./routes/products');
+const articles = require('./routes/articles');
+const methodOverride = require('method-override');
 
-
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 
 const hbs = handlebars.create({
@@ -19,6 +21,8 @@ app.set('view engine', 'hbs');
 
 app.use('/products', products);
   console.log('this line');
+
+app.use('/articles', articles);
 
 
 
