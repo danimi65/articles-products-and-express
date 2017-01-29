@@ -32,7 +32,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.post('/', (req, res) => {
   var newProduct = req.body;
-  products.add(newProduct)
+  products.postProduct(newProduct)
   .then(result => {
    res.redirect(303, '/products');
    console.log(result);
@@ -51,38 +51,52 @@ router.get('/:id', (req, res) => {
     res.render('products.hbs', {productList : result});
   })
   .catch(err => {
-    console.log('error');
-
+    console.log('get by error');
   });
-  // res.render('products', products.getProduct(parseInt(req.params.id)));
+
 });
 
 router.put('/:id', (req, res) => {
   console.log('hello put');
   let newProduct = req.body;
-  let productToChange = products.getProduct(parseInt(req.params.id));
+  let productId = req.params.id;
+  let productToChange = products.getProduct(productId);
 
-  if(newProduct.hasOwnProperty('name')){
+  products.putProduct(productId)
+  .then(result => {
+    if(newProduct.hasOwnProperty('name')){
     productToChange.name = newProduct.name;
-  }
-  if(newProduct.hasOwnProperty('price')){
+    }
+    if(newProduct.hasOwnProperty('price')){
     productToChange.price = newProduct.price;
-  }
-  if(newProduct.hasOwnProperty('inventory')){
+    }
+    if(newProduct.hasOwnProperty('inventory')){
     productToChange.inventory = newProduct.inventory;
-  }
+    }
+    
+  })
+  .catch(err => {
+    console.log('put error');
+  });
 
-  res.redirect(303, '/products/'+ req.params.id);
+
+  res.redirect(303, '/products/'+ productId);
 
 });
 
 
 router.delete('/:id', (req, res) => {
   console.log('hello delete');
-  products.deleteProduct(parseInt(req.params.id));
-
-
+  let productId = req.params.id;
+  products.deleteProduct(productId)
+    .then( result => {
+    console.log(result);
   res.redirect(303, '/products');
+  })
+  .catch(err => {
+    console.log('get by error');
+  });
+
  
 });
 

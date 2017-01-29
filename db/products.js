@@ -23,33 +23,32 @@ function getProduct(productId){
 }
 
 
-function add(newProduct){
-  return db.any(`INSERT INTO "products" (name, price, inventory) VALUES ('${newProduct.name}', ${newProduct.price}, ${newProduct.inventory}
+function postProduct(newProduct){
+  return db.none(`INSERT INTO "products" (name, price, inventory) VALUES ('${newProduct.name}', ${newProduct.price}, ${newProduct.inventory}
     )`);
+}
+
+function putProduct(changeProduct){
+  let QuerySelector = "";
+  let name = products.name;
+  let price = products.price;
+  let inventory = products.inventory;
 }
 
 
 
+function deleteProduct(productId){
+  return db.none(`DELETE FROM "products" WHERE products.id = ${productId}`);
 
-
-
-
-// function deleteProduct(productId){
-//    for(var i = 0; i < inventoryList.length; i++){
-//     if(inventoryList[i].id === productId){
-//       inventoryList.splice(inventoryList.indexOf(inventoryList[i]),1);
-
-//     }
-//   }
-
-// }
+}
 
 
 
 module.exports = {
   getAllProducts: getAllProducts,
-  add: add,
-  getProduct: getProduct
-  // deleteProduct: deleteProduct
+  postProduct: postProduct,
+  getProduct: getProduct,
+  putProduct: putProduct,
+  deleteProduct: deleteProduct
 
 };
