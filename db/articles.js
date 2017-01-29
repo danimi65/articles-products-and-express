@@ -13,6 +13,7 @@ function add(obj){
 function getArticle(title){
   for(var i = 0; i < articleList.length; i++){
     if(articleList[i].title === title){
+      console.log('hooray');
       return articleList[i];
     }
   }
@@ -23,4 +24,5 @@ module.exports = {
   getAllArticles: getAllArticles,
   add: add,
   getArticle: getArticle
+
 };

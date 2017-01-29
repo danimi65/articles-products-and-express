@@ -14,6 +14,13 @@ router.get('/new_article', (req, res) => {
   res.render('new_article');
 });
 
+router.get('/:title', (req, res) => {
+  res.render('articles', articles.getArticle(encodeURI(req.params.title)));
+});
+
+router.get('/:title', (req, res) => {
+  res.render('articles', articles.getArticle(encodeURI(req.params.title)));
+});
 
 router.post('/', (req, res) => {
   let newArticle = {};
@@ -28,13 +35,11 @@ router.post('/', (req, res) => {
   res.redirect('/articles');
 });
 
-router.put('/:title', (req, res) => {
+router.put('/:title/edit', (req, res) => {
   console.log('hello articles put');
   let newArticle = req.body;
   let articleToChange = articles.getArticle(req.params.title);
-  if(newArticle.hasOwnProperty('title')){
-   articleToChange.title = newArticle.title;
-  }
+ 
   if(newArticle.hasOwnProperty('author')){
     articleToChange.author = newArticle.author;
   }
@@ -42,7 +47,7 @@ router.put('/:title', (req, res) => {
     articleToChange.body = newArticle.body;
   }
 
-  res.redirect(303, '/articles/'+ req.params.titleUrl);
+  res.redirect(303, `/articles/${req.params.titleUrl}`);
 
 });
 
