@@ -12,39 +12,20 @@ const db = pgp({
 
 
 
-function getAllProducts(req, res){
- db.any('SELECT * FROM "products"')
-  .then( result => {
-    console.log(result);
-    res.render('index', {productList : result});
-  })
-  .catch(err => {
-    console.log('error');
-
-  });
+function getAllProducts(){
+  return db.any('SELECT * FROM "products"');
 }
 
-// function getProduct(id){
-//   db.one(`SELECT ${id} FROM products WHERE id = ${id}`);
-// }
+function getProduct(productId){
+  console.log(productId);
+  return db.one(`SELECT * FROM "products" WHERE products.id = ${productId}`);
 
-// let inventoryList = [];
+}
 
 
-function add(req, res){
-  const name = req.body.name;
-  const price = req.body.price;
-  const inventory = req.body.inventory;
-  db.any(`INSERT INTO "products" (name, price, inventory) VALUES ('${name}', ${price}, ${inventory}
-    )`)
-  .then(result => {
-     res.redirect(303, '/products');
-    console.log(result);
-  })
-  .catch(err => {
-    console.log('error', err);
-  });
-
+function add(newProduct){
+  return db.any(`INSERT INTO "products" (name, price, inventory) VALUES ('${newProduct.name}', ${newProduct.price}, ${newProduct.inventory}
+    )`);
 }
 
 
@@ -67,8 +48,8 @@ function add(req, res){
 
 module.exports = {
   getAllProducts: getAllProducts,
-  add: add
-  // getProduct: getProduct
+  add: add,
+  getProduct: getProduct
   // deleteProduct: deleteProduct
 
 };
