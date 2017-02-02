@@ -22,7 +22,6 @@ CREATE TABLE "articles" (
 title varchar(200) NOT NULL,
 author varchar(200) NOT NULL,
 body varchar(500) NOT NULL,
-url varchar(300) NOT NULL,
 created_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
 updated_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL);
 

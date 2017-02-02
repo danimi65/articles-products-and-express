@@ -28,11 +28,9 @@ function postProduct(newProduct){
     )`);
 }
 
-function putProduct(changeProduct){
-  let QuerySelector = "";
-  let name = products.name;
-  let price = products.price;
-  let inventory = products.inventory;
+function putProduct(changeProduct, productId){
+  return db.none(`UPDATE "products" SET  WHERE products.id = ${productId}`);
+
 }
 
 

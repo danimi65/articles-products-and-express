@@ -4,11 +4,17 @@ const router = express.Router();
 const articles = require('../db/articles');
 
 router.get('/', (req, res) => {
-  res.render('index', {
-    articleList : articles.getAllArticles()
+  articles.getAllArticles()
+  .then( result => {
+    console.log(result);
+  res.render('index', {articleList : result});
+  })
+  .catch(err => {
+    console.log(' get error');
   });
-
 });
+
+
 
 router.get('/new_article', (req, res) => {
   res.render('new_article');
@@ -23,16 +29,15 @@ router.get('/:title', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  let newArticle = {};
-  if(req.body.hasOwnProperty('title') && req.body.hasOwnProperty('body') && req.body.hasOwnProperty('author')){
-    newArticle.title = req.body.title;
-    newArticle.body = req.body.body;
-    newArticle.author = req.body.author;
-    newArticle.titleUrl = encodeURIComponent(req.body.title);
-    articles.add(newArticle);
-
-  }
-  res.redirect('/articles');
+  var newArticle = req.body;
+  articles.postArticle(newArticle)
+  .then(result => {
+  res.redirect(303, '/articles');
+    console.log(result);
+  })
+  .catch(err => {
+    console.log('post error', err);
+  });
 });
 
 router.put('/:title/edit', (req, res) => {
@@ -47,7 +52,7 @@ router.put('/:title/edit', (req, res) => {
     articleToChange.body = newArticle.body;
   }
 
-  res.redirect(303, `/articles/${req.params.titleUrl}`);
+  res.redirect(303, `/articles/${req.params.title}`);
 
 });
 

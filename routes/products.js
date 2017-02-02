@@ -4,7 +4,7 @@ const router = express.Router();
 const products = require('../db/products');
 
 
-let id = 0;
+// let id = 0;
 
 
 router.get('/', (req, res) => {
@@ -58,29 +58,18 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   console.log('hello put');
-  let newProduct = req.body;
   let productId = req.params.id;
-  let productToChange = products.getProduct(productId);
-
-  products.putProduct(productId)
+  let changeProduct = req.body;
+  products.putProduct(changeProduct, productId)
   .then(result => {
-    if(newProduct.hasOwnProperty('name')){
-    productToChange.name = newProduct.name;
-    }
-    if(newProduct.hasOwnProperty('price')){
-    productToChange.price = newProduct.price;
-    }
-    if(newProduct.hasOwnProperty('inventory')){
-    productToChange.inventory = newProduct.inventory;
-    }
-    
+  res.redirect(303, '/products/'+ productId);
   })
   .catch(err => {
+    console.log(err);
     console.log('put error');
   });
 
 
-  res.redirect(303, '/products/'+ productId);
 
 });
 

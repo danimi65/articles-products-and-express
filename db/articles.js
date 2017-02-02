@@ -1,28 +1,37 @@
 //jshint esversion:6
 
-let articleList = [];
+const PG_PASS = process.env.PG_PASS;
+const pgp = require('pg-promise')();
+const db = pgp({
+  host: 'localhost',
+  port: 5432,
+  database: 'articles_products_express',
+  user: 'danikaharada',
+  password: PG_PASS
+});
+
 
 function getAllArticles(){
-  return articleList;
+  return db.any('SELECT * FROM "articles"');
 }
 
-function add(obj){
-  articleList.push(obj);
+function postArticle(newArticle){
+  return db.none(`INSERT INTO "articles" (title, body, author) VALUES ('${newArticle.title}', '${newArticle.author}', '${newArticle.body}')`);
 }
 
-function getArticle(title){
-  for(var i = 0; i < articleList.length; i++){
-    if(articleList[i].title === title){
-      console.log('hooray');
-      return articleList[i];
-    }
-  }
-  return null;
+function getArticle(articleTitle){
+  console.log(articleTitle);
+  return db.one(`SELECT * FROM "articles" WHERE  articles.title = ${articleTitle}`);
+}
+
+function deleteArticle(articleTitle){
+  return db.none(`DELETE FROM "articles" WHERE articles.title = ${articleTitle}`);
 }
 
 module.exports = {
   getAllArticles: getAllArticles,
-  add: add,
-  getArticle: getArticle
+  postArticle: postArticle,
+  getArticle: getArticle,
+  deleteArticle: deleteArticle
 
 };
