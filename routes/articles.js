@@ -20,12 +20,27 @@ router.get('/new_article', (req, res) => {
   res.render('new_article');
 });
 
-router.get('/:title', (req, res) => {
-  res.render('articles', articles.getArticle(encodeURI(req.params.title)));
+router.get('/:id', (req, res) => {
+  let articleId = req.params.id;
+  articles.getArticle(articleId)
+  .then(result => {
+    console.log(result);
+  res.render('articles.hbs', {articleList : result});
+  })
+  .catch(err => {
+    console.log('get article error', err);
+  });
 });
 
-router.get('/:title', (req, res) => {
-  res.render('articles', articles.getArticle(encodeURI(req.params.title)));
+router.get('/:id/edit', (req, res) => {
+  let articleId = req.params.id;
+  articles.getArticle(articleId)
+  .then(result => {
+  res.render('edit_article', {articleList : result});
+  })
+  .catch(err => {
+    console.log('get article edit error', err);
+  });
 });
 
 router.post('/', (req, res) => {
@@ -40,20 +55,17 @@ router.post('/', (req, res) => {
   });
 });
 
-router.put('/:title/edit', (req, res) => {
-  console.log('hello articles put');
-  let newArticle = req.body;
-  let articleToChange = articles.getArticle(req.params.title);
- 
-  if(newArticle.hasOwnProperty('author')){
-    articleToChange.author = newArticle.author;
-  }
-  if(newArticle.hasOwnProperty('body')){
-    articleToChange.body = newArticle.body;
-  }
-
-  res.redirect(303, `/articles/${req.params.title}`);
-
+router.put('/:id/edit', (req, res) => {
+  let articleId = req.params.id;
+  let changeArticle = req.body;
+  articles.putArticle(changeArticle, articleId)
+  .then(result => {
+  res.redirect(303, '/articles/' + articleId);
+  console.log(result);  
+  })
+  .catch(err => {
+    console.log('put error', err);
+  });
 });
 
 module.exports = router;

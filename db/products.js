@@ -29,7 +29,11 @@ function postProduct(newProduct){
 }
 
 function putProduct(changeProduct, productId){
-  return db.none(`UPDATE "products" SET  WHERE products.id = ${productId}`);
+  return db.none(`UPDATE "products" SET   
+    name = '${changeProduct.name}',
+    price = ${changeProduct.price},
+    inventory = ${changeProduct.inventory} 
+    WHERE products.id = ${productId}`);
 
 }
 

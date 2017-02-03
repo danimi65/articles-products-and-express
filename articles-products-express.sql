@@ -19,6 +19,7 @@ CREATE TABLE "products" (
 --creating articles table
 DROP TABLE IF EXISTS "articles";
 CREATE TABLE "articles" (
+id serial NOT NULL PRIMARY KEY,
 title varchar(200) NOT NULL,
 author varchar(200) NOT NULL,
 body varchar(500) NOT NULL,

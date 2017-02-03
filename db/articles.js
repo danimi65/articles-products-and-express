@@ -19,19 +19,28 @@ function postArticle(newArticle){
   return db.none(`INSERT INTO "articles" (title, body, author) VALUES ('${newArticle.title}', '${newArticle.author}', '${newArticle.body}')`);
 }
 
-function getArticle(articleTitle){
-  console.log(articleTitle);
-  return db.one(`SELECT * FROM "articles" WHERE  articles.title = ${articleTitle}`);
+function getArticle(articleId){
+  console.log(articleId);
+  return db.one(`SELECT * FROM "articles" WHERE  articles.id = ${articleId}`);
 }
 
-function deleteArticle(articleTitle){
-  return db.none(`DELETE FROM "articles" WHERE articles.title = ${articleTitle}`);
+function deleteArticle(articleId){
+  return db.none(`DELETE FROM "articles" WHERE articles.id = ${articleId}`);
+}
+
+function putArticle(newArticle, articleId){
+  return db.none(`UPDATE "articles" SET 
+    title = '${newArticle.title}',
+    author = '${newArticle.author}',
+    body = '${newArticle.body}'`);
+
 }
 
 module.exports = {
   getAllArticles: getAllArticles,
   postArticle: postArticle,
   getArticle: getArticle,
-  deleteArticle: deleteArticle
+  deleteArticle: deleteArticle,
+  putArticle : putArticle
 
 };

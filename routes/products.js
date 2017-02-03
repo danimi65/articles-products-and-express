@@ -24,9 +24,15 @@ router.get('/new', (req, res) => {
 });
  
 router.get('/:id/edit', (req, res) => {
-  console.log('why dont you work');
   var productId = req.params.id;
-  res.render('edit', products.getProduct(productId));
+  products.getProduct(productId)
+  .then(result => {
+  res.render('edit', {articleList : result});
+  })
+  .catch(err => {
+  console.log('why dont you work');
+    
+  });
 });
  
 
